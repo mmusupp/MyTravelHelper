@@ -11,6 +11,7 @@ import Foundation
 struct WebServiceURLs {
     static let fetchallStations = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
     static let fetchTrainsFromSource = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML?StationCode="
+    static let proceesTrainListforDestinationCheck = "http://api.irishrail.ie/realtime/realtime.asmx/getTrainMovementsXML?TrainId="
 }
 
 public enum WebServiceError: Error {

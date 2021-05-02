@@ -52,9 +52,12 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
             }*/
             
             WebServiceHelper().requestDataTask(urlString) { (data) in
-                let station = try? XMLDecoder().decode(Stations.self, from: data!)
-                print(String(decoding: data!, as: UTF8.self))
-                self.presenter!.stationListFetched(list: station!.stationsList)
+                let stationData = try? XMLDecoder().decode(StationData.self, from: data!)
+                if let _trainsList = stationData?.trainsList {
+                    self.proceesTrainListforDestinationCheck(trainsList: _trainsList)
+                } else {
+                    self.presenter!.showNoTrainAvailbilityFromSource()
+                }
             } failure: { (response, error) in
                 
             }
@@ -74,9 +77,27 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
         
         for index  in 0...trainsList.count-1 {
             group.enter()
-            let _urlString = "http://api.irishrail.ie/realtime/realtime.asmx/getTrainMovementsXML?TrainId=\(trainsList[index].trainCode)&TrainDate=\(dateString)"
+            let _urlString = "\(WebServiceURLs.proceesTrainListforDestinationCheck))\(trainsList[index].trainCode)&TrainDate=\(dateString)"
             if Reach().isNetworkReachable() {
-                Alamofire.request(_urlString).response { (movementsData) in
+                WebServiceHelper().requestDataTask(_urlString) { (data) in
+                    let trainMovements = try? XMLDecoder().decode(TrainMovementsData.self, from: data!)
+                    if let _movements = trainMovements?.trainMovements {
+                        let sourceIndex = _movements.firstIndex(where: {$0.locationCode.caseInsensitiveCompare(self._sourceStationCode) == .orderedSame})
+                        let destinationIndex = _movements.firstIndex(where: {$0.locationCode.caseInsensitiveCompare(self._destinationStationCode) == .orderedSame})
+                        let desiredStationMoment = _movements.filter{$0.locationCode.caseInsensitiveCompare(self._destinationStationCode) == .orderedSame}
+                        let isDestinationAvailable = desiredStationMoment.count == 1
+
+                        if isDestinationAvailable  && sourceIndex! < destinationIndex! {
+                            _trainsList[index].destinationDetails = desiredStationMoment.first
+                        }
+                    }
+                    group.leave()
+                    
+                } failure: { (response, error) in
+                    
+                }
+                
+                /*Alamofire.request(_urlString).response { (movementsData) in
                     let trainMovements = try? XMLDecoder().decode(TrainMovementsData.self, from: movementsData.data!)
 
                     if let _movements = trainMovements?.trainMovements {
@@ -90,7 +111,7 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
                         }
                     }
                     group.leave()
-                }
+                }*/
             } else {
                 self.presenter!.showNoInterNetAvailabilityMessage()
             }
