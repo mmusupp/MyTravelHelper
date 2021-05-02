@@ -42,6 +42,12 @@ class SearchTrainViewController: UIViewController {
 }
 
 extension SearchTrainViewController:PresenterToViewProtocol {
+    func handleWebServiceError(error: Error?) {
+        trainsListTable.isHidden = true
+        hideProgressIndicator(view: self.view)
+        showAlert(title: "Error", message: error?.localizedDescription ?? "API error" , actionTitle: "Okay")
+    }
+    
     func showNoInterNetAvailabilityMessage() {
         trainsListTable.isHidden = true
         hideProgressIndicator(view: self.view)

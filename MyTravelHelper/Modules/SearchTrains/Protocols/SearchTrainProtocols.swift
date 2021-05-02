@@ -23,6 +23,7 @@ protocol PresenterToViewProtocol: class{
     func showNoTrainsFoundAlert()
     func showNoTrainAvailbilityFromSource()
     func showNoInterNetAvailabilityMessage()
+    func handleWebServiceError(error: Error?)
 }
 
 protocol PresenterToRouterProtocol: class {
