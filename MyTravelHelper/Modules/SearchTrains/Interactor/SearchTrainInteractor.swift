@@ -77,7 +77,7 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
         
         for index  in 0...trainsList.count-1 {
             group.enter()
-            let _urlString = "\(WebServiceURLs.proceesTrainListforDestinationCheck))\(trainsList[index].trainCode)&TrainDate=\(dateString)"
+            let _urlString = "\(WebServiceURLs.proceesTrainListforDestinationCheck)\(trainsList[index].trainCode)&TrainDate=\(dateString)"
             if Reach().isNetworkReachable() {
                 WebServiceHelper().requestDataTask(_urlString) { (data) in
                     let trainMovements = try? XMLDecoder().decode(TrainMovementsData.self, from: data!)

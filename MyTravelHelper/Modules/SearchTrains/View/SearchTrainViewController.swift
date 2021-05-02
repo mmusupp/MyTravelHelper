@@ -11,8 +11,16 @@ import SwiftSpinner
 import DropDown
 
 class SearchTrainViewController: UIViewController {
-    @IBOutlet weak var destinationTextField: UITextField!
-    @IBOutlet weak var sourceTxtField: UITextField!
+    @IBOutlet weak var destinationTextField: UITextField! {
+        didSet {
+            destinationTextField.text = AppUserDefaults.shared.destinationStation
+        }
+    }
+    @IBOutlet weak var sourceTxtField: UITextField! {
+        didSet {
+            sourceTxtField.text = AppUserDefaults.shared.sourceStation
+        }
+    }
     @IBOutlet weak var trainsListTable: UITableView!
 
     var stationsList:[Station] = [Station]()
@@ -55,9 +63,11 @@ extension SearchTrainViewController:PresenterToViewProtocol {
     }
 
     func showNoTrainAvailbilityFromSource() {
-        trainsListTable.isHidden = true
-        hideProgressIndicator(view: self.view)
-        showAlert(title: "No Trains", message: "Sorry No trains arriving source station in another 90 mins", actionTitle: "Okay")
+        DispatchQueue.main.async {
+            self.trainsListTable.isHidden = true
+            hideProgressIndicator(view: self.view)
+            self.showAlert(title: "No Trains", message: "Sorry No trains arriving source station in another 90 mins", actionTitle: "Okay")
+        }
     }
 
     func updateLatestTrainList(trainsList: [StationTrain]) {
@@ -75,9 +85,11 @@ extension SearchTrainViewController:PresenterToViewProtocol {
     }
 
     func showAlert(title:String,message:String,actionTitle:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     func showInvalidSourceOrDestinationAlert() {
@@ -104,8 +116,10 @@ extension SearchTrainViewController:UITextFieldDelegate {
         dropDown.selectionAction = { (index: Int, item: String) in
             if textField == self.sourceTxtField {
                 self.transitPoints.source = item
+                AppUserDefaults.shared.sourceStation = item
             }else {
                 self.transitPoints.destination = item
+                AppUserDefaults.shared.destinationStation = item
             }
             textField.text = item
         }
