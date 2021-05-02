@@ -32,6 +32,10 @@ class SearchTrainPresenter:ViewToPresenterProtocol {
 }
 
 extension SearchTrainPresenter: InteractorToPresenterProtocol {
+    func handleWebServiceError( error: Error?) {
+        // handle webservice error here
+    }
+    
     func showNoInterNetAvailabilityMessage() {
         view!.showNoInterNetAvailabilityMessage()
     }

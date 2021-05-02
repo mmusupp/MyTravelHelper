@@ -26,6 +26,9 @@
 		753F084E223618AD00175107 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 753F084D223618AD00175107 /* Assets.xcassets */; };
 		753F0851223618AD00175107 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753F084F223618AD00175107 /* LaunchScreen.storyboard */; };
 		753F087122361A6500175107 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753F087022361A6500175107 /* AppConstants.swift */; };
+		7E693D34263E5E2700D9A8A5 /* WebServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E693D33263E5E2700D9A8A5 /* WebServiceHelper.swift */; };
+		7E693D38263E660600D9A8A5 /* WebServiceHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E693D37263E660600D9A8A5 /* WebServiceHelperProtocol.swift */; };
+		7E693D3C263E66F800D9A8A5 /* WebServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E693D3B263E66F800D9A8A5 /* WebServiceConstants.swift */; };
 		8CBBCE0D40B8FE266A1617DE /* Pods_MyTravelHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF635B96516F13D67ADE01AF /* Pods_MyTravelHelper.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +68,9 @@
 		753F0857223618AE00175107 /* MyTravelHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyTravelHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		753F085D223618AE00175107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		753F087022361A6500175107 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		7E693D33263E5E2700D9A8A5 /* WebServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHelper.swift; sourceTree = "<group>"; };
+		7E693D37263E660600D9A8A5 /* WebServiceHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceHelperProtocol.swift; sourceTree = "<group>"; };
+		7E693D3B263E66F800D9A8A5 /* WebServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceConstants.swift; sourceTree = "<group>"; };
 		849A0A29A57A433EA5AB15FB /* Pods-MyTravelHelperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTravelHelperTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTravelHelperTests/Pods-MyTravelHelperTests.release.xcconfig"; sourceTree = "<group>"; };
 		AF635B96516F13D67ADE01AF /* Pods_MyTravelHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTravelHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A9E0F8C97F8AA92AAA053 /* Pods_MyTravelHelperTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTravelHelperTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +152,7 @@
 				753F086F22361A5100175107 /* App-utils */,
 				753F08672236190700175107 /* Modules */,
 				753F0846223618AB00175107 /* AppDelegate.swift */,
+				7E693D32263E5DCD00D9A8A5 /* APIHelper */,
 				753F084D223618AD00175107 /* Assets.xcassets */,
 				753F0852223618AD00175107 /* Info.plist */,
 			);
@@ -242,6 +249,16 @@
 				753C8FB622367DF4005FF13B /* ProgressIndicator.swift */,
 			);
 			path = "App-utils";
+			sourceTree = "<group>";
+		};
+		7E693D32263E5DCD00D9A8A5 /* APIHelper */ = {
+			isa = PBXGroup;
+			children = (
+				7E693D3B263E66F800D9A8A5 /* WebServiceConstants.swift */,
+				7E693D37263E660600D9A8A5 /* WebServiceHelperProtocol.swift */,
+				7E693D33263E5E2700D9A8A5 /* WebServiceHelper.swift */,
+			);
+			path = APIHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				753C8FBA2236BD80005FF13B /* TrainInfoCell.swift in Sources */,
+				7E693D34263E5E2700D9A8A5 /* WebServiceHelper.swift in Sources */,
 				753C8FA822361FC0005FF13B /* SearchTrainProtocols.swift in Sources */,
 				753C8FAA2236228C005FF13B /* SearchTrainPresenter.swift in Sources */,
 				753C8FAE22362463005FF13B /* SearchTrainViewController.swift in Sources */,
@@ -422,8 +440,10 @@
 				753C8FA522361EC9005FF13B /* StationInfo.swift in Sources */,
 				753C8FBC223731E3005FF13B /* Reachability.swift in Sources */,
 				753C8FA622361EC9005FF13B /* Stations.swift in Sources */,
+				7E693D38263E660600D9A8A5 /* WebServiceHelperProtocol.swift in Sources */,
 				753C8FAC223623C2005FF13B /* SearchTrainInteractor.swift in Sources */,
 				753F087122361A6500175107 /* AppConstants.swift in Sources */,
+				7E693D3C263E66F800D9A8A5 /* WebServiceConstants.swift in Sources */,
 				753F0847223618AB00175107 /* AppDelegate.swift in Sources */,
 				753C8FA422361EC9005FF13B /* TrainMovements.swift in Sources */,
 				753C8FB022365E9A005FF13B /* SearchTrainRouter.swift in Sources */,

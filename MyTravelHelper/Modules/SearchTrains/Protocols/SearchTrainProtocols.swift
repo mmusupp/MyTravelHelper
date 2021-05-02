@@ -40,4 +40,5 @@ protocol InteractorToPresenterProtocol: class {
     func fetchedTrainsList(trainsList:[StationTrain]?)
     func showNoTrainAvailbilityFromSource()
     func showNoInterNetAvailabilityMessage()
+    func handleWebServiceError(error: Error?)
 }

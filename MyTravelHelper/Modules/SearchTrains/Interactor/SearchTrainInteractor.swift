@@ -17,11 +17,21 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
 
     func fetchallStations() {
         if Reach().isNetworkReachable() == true {
-            Alamofire.request("http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML")
+            WebServiceHelper().requestDataTask(WebServiceURLs.fetchallStations) { (data) in
+                let station = try? XMLDecoder().decode(Stations.self, from: data!)
+                print(String(decoding: data!, as: UTF8.self))
+                self.presenter!.stationListFetched(list: station!.stationsList)
+            } failure: { (response, error) in
+                self.presenter!.handleWebServiceError(error: error)
+            }
+
+            /*Alamofire.request("http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML")
                 .response { (response) in
                 let station = try? XMLDecoder().decode(Stations.self, from: response.data!)
+                print(String(decoding: response.data!, as: UTF8.self)
+)
                 self.presenter!.stationListFetched(list: station!.stationsList)
-            }
+            }*/
         } else {
             self.presenter!.showNoInterNetAvailabilityMessage()
         }
@@ -30,16 +40,25 @@ class SearchTrainInteractor: PresenterToInteractorProtocol {
     func fetchTrainsFromSource(sourceCode: String, destinationCode: String) {
         _sourceStationCode = sourceCode
         _destinationStationCode = destinationCode
-        let urlString = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML?StationCode=\(sourceCode)"
+        let urlString = "\(WebServiceURLs.fetchTrainsFromSource)\(sourceCode)"
         if Reach().isNetworkReachable() {
-            Alamofire.request(urlString).response { (response) in
+            /*Alamofire.request(urlString).response { (response) in
                 let stationData = try? XMLDecoder().decode(StationData.self, from: response.data!)
                 if let _trainsList = stationData?.trainsList {
                     self.proceesTrainListforDestinationCheck(trainsList: _trainsList)
                 } else {
                     self.presenter!.showNoTrainAvailbilityFromSource()
                 }
+            }*/
+            
+            WebServiceHelper().requestDataTask(urlString) { (data) in
+                let station = try? XMLDecoder().decode(Stations.self, from: data!)
+                print(String(decoding: data!, as: UTF8.self))
+                self.presenter!.stationListFetched(list: station!.stationsList)
+            } failure: { (response, error) in
+                
             }
+            
         } else {
             self.presenter!.showNoInterNetAvailabilityMessage()
         }
